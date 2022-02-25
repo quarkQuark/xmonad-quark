@@ -40,8 +40,6 @@ The current panel can be easily changed by changing the `myBar` variable in [app
   a feature that is sorely missing from pretty much every other desktop-agnostic panel.
   Tint2 is also the easiest to configure as it has an optional graphical configuration manager.
 
-  This is the panel shown in the above screenshot.
-
 * XMobar
 
   The standard XMonad status bar.
