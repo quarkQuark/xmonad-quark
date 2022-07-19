@@ -3,16 +3,14 @@ module MyScratchpads
 where
 
 import XMonad
-import qualified XMonad.StackSet as W
 import XMonad.Hooks.DynamicProperty
 import XMonad.Util.NamedScratchpad
-import Options (myTerminal)
+import qualified XMonad.StackSet as W
 
-myScratchpads :: [NamedScratchpad]
-myScratchpads = [ NS "terminal" spawnTerm queryTerm manageTerm
-                ]
+myScratchpads :: String -> [NamedScratchpad]
+myScratchpads terminal = [ NS "terminal" spawnTerm queryTerm manageTerm ]
   where
-    spawnTerm   = myTerminal ++ " -t scratchpad -e tmux"
+    spawnTerm   = terminal ++ " -t scratchpad -e tmux"
     queryTerm   = title =? "scratchpad"
     manageTerm  = customFloating $ W.RationalRect l t w h
       where
@@ -20,5 +18,3 @@ myScratchpads = [ NS "terminal" spawnTerm queryTerm manageTerm
         w = 0.9
         t = 0.95 - h
         l = 0.95 - w
-
--- Note: It's not worth trying to float spotify: it does not play along nicely.

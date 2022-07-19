@@ -27,7 +27,7 @@ manageSpecific = composeAll . concat $
         myFloatTitles  = ["Whisker Menu"]
         myZoomFloats   = ["Chat", "Participants", "Rooms"]
 
-myManageHook :: ManageHook
-myManageHook = manageSpecific
-           <+> manageDocks
-           <+> namedScratchpadManageHook myScratchpads
+myManageHook :: String -> ManageHook
+myManageHook terminal = manageSpecific
+  <+> manageDocks
+  <+> namedScratchpadManageHook (myScratchpads terminal)
