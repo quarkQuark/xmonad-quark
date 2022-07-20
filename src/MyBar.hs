@@ -14,6 +14,7 @@ data BarConfig = BarConfig
     , barLogHook   :: Handle -> X () -- ^ Data XMonad needs to send to the bar
     }
 
+defBarConfig :: BarConfig
 defBarConfig = BarConfig
     { barSpawnPipe = spawnPipe ""
     , barAutostart = spawnOnce ""
