@@ -3,7 +3,8 @@ module MyTypes
 where
 
 data AppConfig = AppConfig
-  { browser        :: !String
+  { browserMinimal :: !String
+  , browserBig     :: !String
   , buildScript    :: !String -- ^ Script to recompile and restart xmonad
   , editor         :: !String
   , fileManager    :: !String

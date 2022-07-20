@@ -46,7 +46,8 @@ main = do
     myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 
     myAppConfig = AppConfig
-      { browser        = "qutebrowser"
+      { browserMinimal = "qutebrowser"
+      , browserBig     = "vivaldi"
       , buildScript    = myXMonadDir ++ "build"
       , editor         = "emacs"
       , fileManager    = myTerminal ++ " -e ranger "
@@ -62,9 +63,10 @@ main = do
 
     -- Colours copied from DistroTube's config (at gitlab/dwt1)
     myLayoutConfig = LayoutConfig
-      { myFontName               = "xft:Ubuntu Nerd Font:size=10"
-      , mySpacingAround          = 20
-      , mySpacingBetween         = 8
+      { myFontName               = "xft:Fira Code:size=11"
+      , mySpacingAround          = 10
+      , mySpacingBetween         = 4
+
       , myTabActiveColor         = "#46D9FF"
       , myTabInactiveColor       = "#313846"
       , myTabActiveBorderColor   = "#46D9FF"

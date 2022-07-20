@@ -38,7 +38,7 @@ myCheatsheetKey m = (m .|. shiftMask, xK_slash)
 -- Directly using ? doesn't seem to work
 --myCheatsheetKey m = (m, xK_question)
 
-myKeys :: AppConfig -> XConfig l -> Keybindings
+myKeys :: AppConfig -> XConfig Layout -> Keybindings
 myKeys AppConfig{..} conf@XConfig{..} = let
 
   subKeys name list = subtitle name : mkNamedKeymap conf list
@@ -56,20 +56,18 @@ myKeys AppConfig{..} conf@XConfig{..} = let
   volumeAdjust "toggle" = spawn "adjust-volume toggle"
   volumeAdjust value    = spawn $ args "adjust-volume" $ words value
 
-  brightnessAdjust perc = spawn
-      $ "xbacklight " ++ perc ++ " && notify-send \"Brightness `xbacklight -get`%\""
-
   nsTerminal  = namedScratchpadAction (myScratchpads terminal) "terminal"
   --nsMusic     = namedScratchpadAction myScratchpads "music"
 
   in
 
   subKeys "Core"
-  [ ("M-S-q",                   addName "Quit XMonad (logout)"   $ io exitSuccess)
-  , ("M-q",                     addName "Recompile & restart"    $ spawn buildScript)
-  , ("M-S-s",                   addName "Suspend"                $ spawn "systemctl suspend")
-  , ("C-<Escape>",              addName "Application launcher"   $ spawn "appmenu")
-  , ("M-S-c",                   addName "Close window"           $ kill)
+  [ ("M-S-q",                   addName "Quit XMonad (logout)"  $ io exitSuccess)
+  , ("M-q",                     addName "Recompile and restart" $ spawn buildScript)
+  , ("M-S-l",                   addName "Refresh layoutHook"    $ setLayout layoutHook)
+  , ("M-S-s",                   addName "Suspend"               $ spawn "systemctl suspend")
+  , ("C-<Escape>",              addName "Application launcher"  $ spawn "appmenu")
+  , ("M-S-c",                   addName "Close window"          $ kill)
   ] ^++^
 
   subKeys "Screens" (
@@ -119,8 +117,8 @@ myKeys AppConfig{..} conf@XConfig{..} = let
   , ("M3-<Return>",             addName "Terminal emulator"      $ spawn terminal)
   , ("M3-v",                    addName "Vim"                    $ spawn $ terminal ++ " -e nvim")
   , ("M3-e",                    addName "Emacs"                  $ spawn "emacs")
-  , ("M3-w",                    addName "Web browser (minimal)"  $ spawn browser)
-  , ("M3-S-w",                  addName "Firefox"                $ spawn "firefox")
+  , ("M3-w",                    addName "Web browser (minimal)"  $ spawn browserMinimal)
+  , ("M3-S-w",                  addName "Web browser (big)"      $ spawn browserBig)
   , ("M3-f",                    addName "Terminal file manager"  $ spawn fileManager)
   , ("M3-S-f",                  addName "Graphical file manager" $ spawn fileManagerGUI)
   , ("M3-z",                    addName "Zoom"                   $ spawn "zoom")
@@ -135,14 +133,9 @@ myKeys AppConfig{..} conf@XConfig{..} = let
 
   subKeys "Multimedia Keys"
   [ ("<XF86AudioMute>",         addName "Toggle mute"            $ volumeAdjust "toggle")
-  , ("<XF86AudioLowerVolume>",  addName "Decrease volume"        $ volumeAdjust "- 5%")
   , ("<XF86AudioRaiseVolume>",  addName "Increase volume"        $ volumeAdjust "+ 5%")
-  , ("<XF86MonBrightnessDown>", addName "Decrease brightness"    $ brightnessAdjust "-dec 10")
-  , ("<XF86MonBrightnessUp>",   addName "Increase brightness"    $ brightnessAdjust "-inc 10")
-  , ("C-<F1>",                  addName "Toggle mute"            $ volumeAdjust "toggle")
-  , ("C-<F2>",                  addName "Decrease volume"        $ volumeAdjust "- 5%")
-  , ("C-<F3>",                  addName "Increase volume"        $ volumeAdjust "+ 5%")
-  , ("C-<F11>",                 addName "Decrease brightness"    $ brightnessAdjust "-dec 10")
-  , ("C-<F12>",                 addName "Increase brightness"    $ brightnessAdjust "-inc 10")
+  , ("<XF86AudioLowerVolume>",  addName "Decrease volume"        $ volumeAdjust "- 5%")
+  , ("<XF86MonBrightnessUp>",   addName "Increase brightness"    $ spawn "adjust-brightness + 10%")
+  , ("<XF86MonBrightnessDown>", addName "Decrease brightness"    $ spawn "adjust-brightness - 10%")
   , ("<Print>",                 addName "Take screenshot"        $ spawn printScreen)
   ]

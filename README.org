@@ -4,7 +4,32 @@ XMonad is a library for creating a tiling window manager in Haskell, a programmi
 
 ** Installation
 
-The installation instructions for this config currently live at [[/../../README.md][the root README file]] for this repository.
+The installation instructions for this config currently live at [[/../../README.md][the root README file]] for this repository. It depends on certain scripts in https://github.con/quarkQuark/dotfiles/tree/master/.scripts as well as the following.
+- Required dependencies ::
+  #+begin_src sh
+    alacritty
+    aur/deadd-notification-center  # Alternatively use `dunst`
+    bc
+    brightnessctl
+    nitrogen
+    aur/notify-send-py
+    redshift
+    rofi
+    spectacle
+  #+end_src
+- Semi-optional dependencies :: Not necessary for core functionality, but necessary for certain keybindings to do anything
+  #+begin_src sh
+    emacs
+    pcmanfm
+    qutebrowser
+    ranger
+    vivaldi
+    zathura
+  #+end_src
+- Optional dependencies :: These programs are preferred for some functionality, but have fallbacks
+  #+begin_src sh
+    tmux  # Automatically runs in terminal scratchpad
+  #+end_src
 
 ** Keybindings
 
