@@ -1,7 +1,6 @@
 import XMonad                             -- standard xmonad library
 import XMonad.Config.Desktop              -- default desktopConfig
 import XMonad.Hooks.EwmhDesktops (ewmh)   -- Fixes the automatic fullscreening of applications
-import XMonad.Layout.Tabbed
 import XMonad.Util.NamedActions (addDescrKeys')
 import XMonad.Util.SpawnOnce (spawnOnce)  -- For running autostart only once (on login)
 
@@ -33,7 +32,7 @@ main = do
         , normalBorderColor  = myNormalBorderColour
         , focusedBorderColor = myFocusedBorderColour
         , manageHook         = myManageHook myTerminal
-        , layoutHook         = myLayoutHook myTabTheme
+        , layoutHook         = myLayoutHook myLayoutConfig
         , logHook            = barLogHook (barConfig myBar) barProc
         , workspaces         = myWorkspaces
         , startupHook        = do barAutostart $ barConfig myBar
@@ -62,12 +61,14 @@ main = do
     myNormalBorderColour  = "#111111"
 
     -- Colours copied from DistroTube's config (at gitlab/dwt1)
-    myTabTheme = def
-      { activeColor         = "#46D9FF"
-      , inactiveColor       = "#313846"
-      , activeBorderColor   = "#46D9FF"
-      , inactiveBorderColor = "#282C34"
-      , activeTextColor     = "#282C34"
-      , inactiveTextColor   = "#D0D0D0"
-      , fontName            = "xft:Ubuntu Nerd Font:size=10"
+    myLayoutConfig = LayoutConfig
+      { myFontName               = "xft:Ubuntu Nerd Font:size=10"
+      , mySpacingAround          = 20
+      , mySpacingBetween         = 8
+      , myTabActiveColor         = "#46D9FF"
+      , myTabInactiveColor       = "#313846"
+      , myTabActiveBorderColor   = "#46D9FF"
+      , myTabInactiveBorderColor = "#282C34"
+      , myTabActiveTextColor     = "#282C34"
+      , myTabInactiveTextColor   = "#D0D0D0"
       }

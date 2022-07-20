@@ -6,7 +6,6 @@ import XMonad
 import XMonad.Hooks.DynamicLog
 import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.SpawnOnce (spawnOnce)
-import Options
 
 data Bar = Taffybar | XMobar | Tint2 deriving (Eq)
 data BarConfig = BarConfig
