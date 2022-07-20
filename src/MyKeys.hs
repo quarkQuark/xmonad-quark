@@ -1,4 +1,6 @@
 {-# LANGUAGE RecordWildCards #-}
+{-# OPTIONS_GHC -Wno-unrecognised-pragmas #-}
+{-# HLINT ignore "Redundant $" #-}
 
 module MyKeys
 (myKeys,myCheatsheetKey)
@@ -49,90 +51,87 @@ myKeys AppConfig{..} conf@XConfig{..} = let
   menuChangeColourscheme = spawn $ args "menu-change-colourscheme" [menu]
   menuReadPdf            = spawn $ args "menu-read-pdf" [menu,pdfReader]
 
-  viewScreen s          = screenWorkspace s >>= flip whenJust (windows . W.view)
-  shiftScreen s         = screenWorkspace s >>= flip whenJust (windows . W.shift)
-  unFloat               = withFocused $ windows . W.sink
+  viewScreen s           = screenWorkspace s >>= flip whenJust (windows . W.view)
+  shiftScreen s          = screenWorkspace s >>= flip whenJust (windows . W.shift)
 
-  nsTerminal  = namedScratchpadAction (myScratchpads terminal) "terminal"
+  nsTerminal = namedScratchpadAction (myScratchpads terminal) "terminal"
   --nsMusic     = namedScratchpadAction myScratchpads "music"
 
   in
 
   subKeys "Core"
-  [ ("M-S-q",                   addName "Quit XMonad (logout)"  $ io exitSuccess)
-  , ("M-q",                     addName "Recompile and restart" $ spawn buildScript)
-  , ("M-S-l",                   addName "Refresh layoutHook"    $ setLayout layoutHook)
-  , ("M-S-s",                   addName "Suspend"               $ spawn "systemctl suspend")
-  , ("C-<Escape>",              addName "Application launcher"  $ spawn "appmenu")
-  , ("M-S-c",                   addName "Close window"          $ kill)
+  [ ("M-S-q",           addName "Quit XMonad (logout)"        $ io exitSuccess)
+  , ("M-q",             addName "Recompile and restart"       $ spawn buildScript)
+  , ("M-S-l",           addName "Refresh layoutHook"          $ setLayout layoutHook)
+  , ("M-S-s",           addName "Suspend"                     $ spawn "systemctl suspend")
+  , ("C-<Escape>",      addName "Application launcher"        $ spawn "appmenu")
+  , ("M-S-c",           addName "Close window"                $ kill)
   ] ^++^
 
-  subKeys "Screens" (
-  [("M-"++key,                  addName ("Focus screen "++show sc)   $ viewScreen sc)
-      | (key,sc) <- zip ["w","e","r"] [0..]
-  ] ^++^
-  [("M-S-"++key,                addName ("Send to screen "++show sc) $ shiftScreen sc)
-      | (key,sc) <- zip ["w","e","r"] [0..]
-  ]) ^++^
+  subKeys "Screens"
+  (concat
+   [ [("M-"++k,         addName ("Focus screen "++show sc)    $ viewScreen sc)
+     , ("M-S-"++k,      addName ("Send to screen "++show sc)  $ shiftScreen sc)
+   ] | (k,sc) <- zip ["w","e","r"] [0..] ]
+  ) ^++^
 
-  subKeys "Workspaces" (
-  [ ("M-"++show key,            addName ("View workspace "++i)    $ windows $ W.greedyView i)
-      | (key,i) <- zip [1..9] (XMonad.workspaces conf)
-  ] ^++^
-  [ ("M-S-"++show key,          addName ("Send to workspace "++i) $ windows $ W.shift i)
-      | (key,i) <- zip [1..9] (XMonad.workspaces conf)
-  ] ^++^
-  [ ("M--",                     addName "Terminal scratchpad"    $ nsTerminal)
-  --, ("M-=",                     addName "Music scratchpad"       $ nsMusic)
-  ]) ^++^
+  subKeys "Workspaces"
+  (concat
+   [ [("M-"++show k,    addName ("View workspace "++i)        $ windows $ W.greedyView i)
+     , ("M-S-"++show k, addName ("Send to workspace "++i)     $ windows $ W.shift i)
+   ] | (k,i) <- zip [1..9] workspaces ] ^++^
+   [ ("M--",            addName "Terminal scratchpad"         $ nsTerminal)
+   --, ("M-=",            addName "Music scratchpad"           $ nsMusic)
+   ]
+  ) ^++^
 
   subKeys "Layouts"
-  [ ("M-h",                     addName "Shrink master"          $ sendMessage Shrink)
-  , ("M-l",                     addName "Expand master"          $ sendMessage Expand)
-  , ("M-i",                     addName "Shrink slave"           $ sendMessage MirrorExpand)
-  , ("M-u",                     addName "Expand slave"           $ sendMessage MirrorShrink)
-  , ("M-,",                     addName "Inc master windows"     $ sendMessage $ IncMasterN 1)
-  , ("M-.",                     addName "Dec master windows"     $ sendMessage $ IncMasterN (-1))
-  , ("M3-<Space>",              addName "Next layout"            $ sendMessage NextLayout)
-  , ("M-f",                     addName "Toggle fullscreen"      $ sendMessage $ Toggle NBFULL)
+  [ ("M-h",             addName "Shrink master"               $ sendMessage Shrink)
+  , ("M-l",             addName "Expand master"               $ sendMessage Expand)
+  , ("M-i",             addName "Shrink slave"                $ sendMessage MirrorExpand)
+  , ("M-u",             addName "Expand slave"                $ sendMessage MirrorShrink)
+  , ("M-,",             addName "Inc master windows"          $ sendMessage $ IncMasterN 1)
+  , ("M-.",             addName "Dec master windows"          $ sendMessage $ IncMasterN (-1))
+  , ("M3-<Space>",      addName "Next layout"                 $ sendMessage NextLayout)
+  , ("M-f",             addName "Toggle fullscreen"           $ sendMessage $ Toggle NBFULL)
   ] ^++^
 
   subKeys "Windows"
-  [ ("M-<Tab>",                 addName "Focus next"             $ windows W.focusDown)
-  , ("M-S-<Tab>",               addName "Focus previous"         $ windows W.focusUp)
-  , ("M-j",                     addName "Focus next"             $ windows W.focusDown)
-  , ("M-k",                     addName "Focus previous"         $ windows W.focusUp)
-  , ("M-m",                     addName "Focus master"           $ windows W.focusMaster)
-  , ("M-S-j",                   addName "Swap next"              $ windows W.swapDown)
-  , ("M-S-k",                   addName "Swap previous"          $ windows W.swapUp)
-  , ("M-<Return>",              addName "Swap master"            $ windows W.swapMaster)
-  , ("M-t",                     addName "Unfloat"                $ unFloat)
+  [ ("M-<Tab>",         addName "Focus next"                  $ windows W.focusDown)
+  , ("M-S-<Tab>",       addName "Focus previous"              $ windows W.focusUp)
+  , ("M-j",             addName "Focus next"                  $ windows W.focusDown)
+  , ("M-k",             addName "Focus previous"              $ windows W.focusUp)
+  , ("M-m",             addName "Focus master"                $ windows W.focusMaster)
+  , ("M-S-j",           addName "Swap next"                   $ windows W.swapDown)
+  , ("M-S-k",           addName "Swap previous"               $ windows W.swapUp)
+  , ("M-<Return>",      addName "Swap master"                 $ windows W.swapMaster)
+  , ("M-t",             addName "Unfloat"                     $ withFocused $ windows . W.sink)
   ] ^++^
 
   subKeys "Applications"
-  [ ("M-S-<Return>",            addName "Terminal emulator"      $ spawn terminal)
-  , ("M3-<Return>",             addName "Terminal emulator"      $ spawn terminal)
-  , ("M3-v",                    addName "Vim"                    $ spawn $ terminal ++ " -e nvim")
-  , ("M3-e",                    addName "Emacs"                  $ spawn "emacs")
-  , ("M3-w",                    addName "Web browser (minimal)"  $ spawn browserMinimal)
-  , ("M3-S-w",                  addName "Web browser (big)"      $ spawn browserBig)
-  , ("M3-f",                    addName "Terminal file manager"  $ spawn fileManager)
-  , ("M3-S-f",                  addName "Graphical file manager" $ spawn fileManagerGUI)
-  , ("M3-z",                    addName "Zoom"                   $ spawn "zoom")
+  [ ("M-S-<Return>",    addName "Terminal emulator"           $ spawn terminal)
+  , ("M3-<Return>",     addName "Terminal emulator"           $ spawn terminal)
+  , ("M3-v",            addName "Vim"                         $ spawn $ terminal ++ " -e nvim")
+  , ("M3-e",            addName "Emacs"                       $ spawn "emacs")
+  , ("M3-w",            addName "Web browser (minimal)"       $ spawn browserMinimal)
+  , ("M3-S-w",          addName "Web browser (big)"           $ spawn browserBig)
+  , ("M3-f",            addName "Terminal file manager"       $ spawn fileManager)
+  , ("M3-S-f",          addName "Graphical file manager"      $ spawn fileManagerGUI)
+  , ("M3-z",            addName "Zoom"                        $ spawn "zoom")
   ] ^++^
 
   subKeys "My Scripts"
-  [ ("M-p M-p",                 addName "Edit scripts"           $ menuEditScript)
-  , ("M-p M-e",                 addName "Edit configs"           $ menuEditConfig)
-  , ("M-p M-c",                 addName "Change colourscheme"    $ menuChangeColourscheme)
-  , ("M-p M-z",                 addName "Read PDF file"          $ menuReadPdf)
+  [ ("M-p M-p",         addName "Edit scripts"                $ menuEditScript)
+  , ("M-p M-e",         addName "Edit configs"                $ menuEditConfig)
+  , ("M-p M-c",         addName "Change colourscheme"         $ menuChangeColourscheme)
+  , ("M-p M-z",         addName "Read PDF file"               $ menuReadPdf)
   ] ^++^
 
   subKeys "Multimedia Keys"
-  [ ("<XF86AudioMute>",         addName "Toggle mute"            $ spawn "adjust volume toggle")
-  , ("<XF86AudioRaiseVolume>",  addName "Increase volume"        $ spawn "adjust volume + 10%")
-  , ("<XF86AudioLowerVolume>",  addName "Decrease volume"        $ spawn "adjust volume - 10%")
-  , ("<XF86MonBrightnessUp>",   addName "Increase brightness"    $ spawn "adjust brightness + 10%")
-  , ("<XF86MonBrightnessDown>", addName "Decrease brightness"    $ spawn "adjust brightness - 10%")
-  , ("<Print>",                 addName "Take screenshot"        $ spawn printScreen)
+  [ ("<XF86AudioMute>",         addName "Toggle mute"         $ spawn "adjust volume toggle")
+  , ("<XF86AudioRaiseVolume>",  addName "Increase volume"     $ spawn "adjust volume + 10%")
+  , ("<XF86AudioLowerVolume>",  addName "Decrease volume"     $ spawn "adjust volume - 10%")
+  , ("<XF86MonBrightnessUp>",   addName "Increase brightness" $ spawn "adjust brightness + 10%")
+  , ("<XF86MonBrightnessDown>", addName "Decrease brightness" $ spawn "adjust brightness - 10%")
+  , ("<Print>",                 addName "Take screenshot"     $ spawn printScreen)
   ]
