@@ -4,52 +4,50 @@ XMonad is a library for creating a tiling window manager in Haskell, a programmi
 
 ** Installation
 
-The installation instructions for this config currently live in my [[https://github.com/quarkQuark/dotfiles]] dotfiles repository. It depends on certain scripts in https://github.con/quarkQuark/dotfiles/tree/master/.scripts as well as the following.
+*** Dependencies
 
-1. Dependencies
+- Required :: =alacritty bc brightnessctl nitrogen redshift rofi spectacle network-manager network-manager-applet pasystray udiskie xcape xorg-xmodmap xorg-xrandr aur/deadd-notification-center aur/notify-send-py aur/stack-static aur/picom-ibhagwan-git=
 
-  - Required :: =alacritty bc brightnessctl nitrogen redshift rofi spectacle network-manager network-manager-applet pasystray udiskie xcape xorg-xmodmap xorg-xrandr aur/deadd-notification-center aur/notify-send-py aur/stack-static aur/picom-ibhagwan-git=
+- Scripts from https://github.com/quarkQuark/scripts ::
 
-  - For xmobar :: =stalonetray xfce4-power-manager=
-  - For taffybar :: =lxqt-power-management=
-  - Not necessary for core functionality :: =dzen2 emacs pcmanfm qutebrowser ranger vivaldi zathura=
+#+begin_src sh
+  git clone git@github.com:quarkQuark/scripts $HOME/.scripts/repo
+  cp $HOME/Projects/xmonad-quark/scripts/* $HOME/.scripts
+#+end_src
 
-  - Optional :: These programs are preferred for some functionality, but have fallbacks
-    #+begin_src sh
-      tmux  # Automatically runs in terminal scratchpad
-    #+end_src
+- For xmobar :: =stalonetray xfce4-power-manager=
+- For taffybar :: =lxqt-power-management=
+- Not necessary for core functionality :: =dzen2 emacs pcmanfm qutebrowser ranger vivaldi zathura=
 
-2. Install XMonad
-
+- Optional :: These programs are preferred for some functionality, but have fallbacks
   #+begin_src sh
-    git clone git@github.com:quarkQuark/xmonad-quark $HOME/Projects/xmonad-quark
-    cd $HOME/Projects/xmonad-quark && stack install
-    cd $HOME/.config/taffybar && stack install
-    stack install xmobar
-    stack install status-notifier-item  # For taffybar's system tray
+    tmux  # Automatically runs in terminal scratchpad
   #+end_src
 
-  Then create the file =/usr/share/xsessions/xmonad.desktop= with the following contents:
+*** Install XMonad
 
-  #+begin_example conf
-    [Desktop Entry]
-    Encoding=UTF-8
-    Type=Application
-    Name=XMonad
-    Comment=Lightweight X11 tiling window manager written in Haskell
-    Exec=xmonad
-    Icon=xmonad
-    Terminal=false
-    StartupNotify=false
-    Categories=Application
-  #+end_example
+#+begin_src sh
+  git clone git@github.com:quarkQuark/xmonad-quark $HOME/Projects/xmonad-quark
+  cd $HOME/Projects/xmonad-quark && stack install
+  cd $HOME/.config/taffybar && stack install
+  stack install xmobar
+  stack install status-notifier-item  # For taffybar's system tray
+#+end_src
 
-3. Download scripts
+Then create the file =/usr/share/xsessions/xmonad.desktop= with the following contents:
 
-  #+begin_src sh
-    git clone git@github.com:quarkQuark/scripts $HOME/.scripts/repo
-    cp $HOME/Projects/xmonad-quark/scripts/* $HOME/.scripts
-  #+end_src
+#+begin_example conf
+  [Desktop Entry]
+  Encoding=UTF-8
+  Type=Application
+  Name=XMonad
+  Comment=Lightweight X11 tiling window manager written in Haskell
+  Exec=xmonad
+  Icon=xmonad
+  Terminal=false
+  StartupNotify=false
+  Categories=Application
+#+end_example
 
 ** Keybindings
 
