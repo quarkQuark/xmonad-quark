@@ -53,9 +53,6 @@ myKeys AppConfig{..} conf@XConfig{..} = let
   shiftScreen s         = screenWorkspace s >>= flip whenJust (windows . W.shift)
   unFloat               = withFocused $ windows . W.sink
 
-  volumeAdjust "toggle" = spawn "adjust-volume toggle"
-  volumeAdjust value    = spawn $ args "adjust-volume" $ words value
-
   nsTerminal  = namedScratchpadAction (myScratchpads terminal) "terminal"
   --nsMusic     = namedScratchpadAction myScratchpads "music"
 
@@ -132,10 +129,10 @@ myKeys AppConfig{..} conf@XConfig{..} = let
   ] ^++^
 
   subKeys "Multimedia Keys"
-  [ ("<XF86AudioMute>",         addName "Toggle mute"            $ volumeAdjust "toggle")
-  , ("<XF86AudioRaiseVolume>",  addName "Increase volume"        $ volumeAdjust "+ 5%")
-  , ("<XF86AudioLowerVolume>",  addName "Decrease volume"        $ volumeAdjust "- 5%")
-  , ("<XF86MonBrightnessUp>",   addName "Increase brightness"    $ spawn "adjust-brightness + 10%")
-  , ("<XF86MonBrightnessDown>", addName "Decrease brightness"    $ spawn "adjust-brightness - 10%")
+  [ ("<XF86AudioMute>",         addName "Toggle mute"            $ spawn "adjust volume toggle")
+  , ("<XF86AudioRaiseVolume>",  addName "Increase volume"        $ spawn "adjust volume + 10%")
+  , ("<XF86AudioLowerVolume>",  addName "Decrease volume"        $ spawn "adjust volume - 10%")
+  , ("<XF86MonBrightnessUp>",   addName "Increase brightness"    $ spawn "adjust brightness + 10%")
+  , ("<XF86MonBrightnessDown>", addName "Decrease brightness"    $ spawn "adjust brightness - 10%")
   , ("<Print>",                 addName "Take screenshot"        $ spawn printScreen)
   ]
