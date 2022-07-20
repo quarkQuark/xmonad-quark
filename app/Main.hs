@@ -10,12 +10,11 @@ import MyCheatsheet
 import MyKeys
 import MyLayoutHook
 import MyManageHook
-import Options
 import MyTypes
 
 main :: IO ()
 main = do
-    barProc <- barSpawnPipe' myBar  -- Start myBar and return a handle
+    barProc <- barSpawnPipe $ barConfig myBar-- Start myBar and return a handle
     spawn "pkill -o taffybar" -- Kill oldest taffybar instance (move to M-q binding?)
 
     -- Applies this config file over the default config for desktop use
@@ -35,14 +34,16 @@ main = do
         , focusedBorderColor = myFocusedBorderColour
         , manageHook         = myManageHook myTerminal
         , layoutHook         = myLayoutHook myTabTheme
-        , logHook            = barLogHook' myBar barProc
+        , logHook            = barLogHook (barConfig myBar) barProc
         , workspaces         = myWorkspaces
-        , startupHook        = do barAutostart' myBar
-                                  spawnOnce myAutostart
+        , startupHook        = do barAutostart $ barConfig myBar
+                                  spawnOnce $ myXMonadDir ++ "src/autostart.sh"
         }
 
-    myModMask  = mod4Mask -- Super (Windows) key
-    myTerminal = "alacritty"
+    myModMask    = mod4Mask -- Super (Windows) key
+    myXMonadDir  = "~/Projects/xmonad-quark/"
+    myTerminal   = "alacritty"
+    myBar        = XMobar
     myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 
     myAppConfig = AppConfig
