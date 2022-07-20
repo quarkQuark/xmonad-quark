@@ -15,8 +15,8 @@ XMonad is a library for creating a tiling window manager in Haskell, a programmi
   cp $HOME/Projects/xmonad-quark/scripts/* $HOME/.scripts
 #+end_src
 
-- For xmobar :: =stalonetray xfce4-power-manager=
-- For taffybar :: =lxqt-power-management=
+- For XMobar :: =stalonetray xfce4-power-manager=
+- For Taffybar :: =lxqt-power-management=
 - Not necessary for core functionality :: =dzen2 emacs pcmanfm qutebrowser ranger vivaldi zathura=
 
 - Optional :: These programs are preferred for some functionality, but have fallbacks
