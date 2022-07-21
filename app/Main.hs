@@ -41,7 +41,7 @@ main = do
 
     myModMask    = mod4Mask -- Super (Windows) key
     myXMonadDir  = "~/Projects/xmonad-quark/"
-    myTerminal   = "alacritty"
+    myTerminal   = "kitty"
     myBar        = XMobar
     myWorkspaces = ["1","2","3","4","5","6","7","8","9"]
 

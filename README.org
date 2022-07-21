@@ -6,7 +6,7 @@ XMonad is a library for creating a tiling window manager in Haskell, a programmi
 
 *** Dependencies
 
-- Required :: =alacritty bc brightnessctl nitrogen redshift rofi spectacle network-manager network-manager-applet pasystray udiskie xcape xorg-xmodmap xorg-xrandr aur/deadd-notification-center aur/notify-send-py aur/stack-static aur/picom-ibhagwan-git=
+- Required :: =bc brightnessctl kitty nitrogen redshift rofi spectacle network-manager network-manager-applet pasystray udiskie xcape xorg-xmodmap xorg-xrandr aur/deadd-notification-center aur/notify-send-py aur/stack-static aur/picom-ibhagwan-git=
 
 - Scripts from https://github.com/quarkQuark/scripts ::
 
