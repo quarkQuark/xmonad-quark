@@ -48,7 +48,7 @@ myKeys AppConfig{..} conf@XConfig{..} = let
   -- Abbreviations for certain actions
   menuEditScript         = spawn $ args "menu-edit-script" [menu,editor]
   menuEditConfig         = spawn $ args "menu-edit-config" [menu,editor]
-  menuChangeColourscheme = spawn $ args "menu-change-colourscheme" [menu]
+  menuChangeColourscheme = spawn $ args "menu-change-colours" [menu]
   menuReadPdf            = spawn $ args "menu-read-pdf" [menu,pdfReader]
 
   viewScreen s           = screenWorkspace s >>= flip whenJust (windows . W.view)
