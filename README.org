@@ -6,23 +6,11 @@ XMonad is a library for creating a tiling window manager in Haskell, a programmi
 
 *** Dependencies
 
-- Required :: =bc brightnessctl kitty nitrogen redshift rofi spectacle network-manager network-manager-applet pasystray udiskie xcape xorg-xmodmap xorg-xrandr aur/deadd-notification-center aur/notify-send-py aur/stack-static aur/picom-ibhagwan-git=
-
-- Scripts from https://github.com/quarkQuark/scripts ::
-
-#+begin_src sh
-  git clone git@github.com:quarkQuark/scripts $HOME/.scripts/repo
-  cp $HOME/Projects/xmonad-quark/scripts/* $HOME/.scripts
-#+end_src
-
+- Required :: =kitty nitrogen redshift rofi spectacle network-manager network-manager-applet pasystray udiskie xcape xorg-xmodmap xorg-xrandr aur/deadd-notification-center aur/notify-send-py aur/stack-static aur/picom-ibhagwan-git=
+- Scripts :: https://github.com/quarkQuark/scripts
 - For XMobar :: =stalonetray xfce4-power-manager=
 - For Taffybar :: =lxqt-power-management=
-- Not necessary for core functionality :: =dzen2 emacs pcmanfm qutebrowser ranger vivaldi zathura=
-
-- Optional :: These programs are preferred for some functionality, but have fallbacks
-  #+begin_src sh
-    tmux  # Automatically runs in terminal scratchpad
-  #+end_src
+- Not necessary for core functionality :: =dzen2 emacs pcmanfm qutebrowser ranger tmux vivaldi zathura=
 
 *** Install XMonad
 
