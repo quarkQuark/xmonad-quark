@@ -129,9 +129,9 @@ myKeys AppConfig{..} conf@XConfig{..} = let
 
   subKeys "Multimedia Keys"
   [ ("<XF86AudioMute>",         addName "Toggle mute"         $ spawn "adjust volume toggle")
-  , ("<XF86AudioRaiseVolume>",  addName "Increase volume"     $ spawn "adjust volume + 10%")
-  , ("<XF86AudioLowerVolume>",  addName "Decrease volume"     $ spawn "adjust volume - 10%")
-  , ("<XF86MonBrightnessUp>",   addName "Increase brightness" $ spawn "adjust brightness + 10%")
-  , ("<XF86MonBrightnessDown>", addName "Decrease brightness" $ spawn "adjust brightness - 10%")
+  , ("<XF86AudioRaiseVolume>",  addName "Increase volume"     $ spawn "adjust volume +10%")
+  , ("<XF86AudioLowerVolume>",  addName "Decrease volume"     $ spawn "adjust volume -10%")
+  , ("<XF86MonBrightnessUp>",   addName "Increase brightness" $ spawn "adjust brightness +10%")
+  , ("<XF86MonBrightnessDown>", addName "Decrease brightness" $ spawn "adjust brightness -10%")
   , ("<Print>",                 addName "Take screenshot"     $ spawn printScreen)
   ]
