@@ -54,9 +54,6 @@ myKeys AppConfig{..} conf@XConfig{..} = let
   viewScreen s           = screenWorkspace s >>= flip whenJust (windows . W.view)
   shiftScreen s          = screenWorkspace s >>= flip whenJust (windows . W.shift)
 
-  nsTerminal = namedScratchpadAction (myScratchpads terminal) "terminal"
-  --nsMusic     = namedScratchpadAction myScratchpads "music"
-
   in
 
   subKeys "Core"
@@ -80,7 +77,7 @@ myKeys AppConfig{..} conf@XConfig{..} = let
    [ [("M-"++show k,    addName ("View workspace "++i)        $ windows $ W.greedyView i)
      , ("M-S-"++show k, addName ("Send to workspace "++i)     $ windows $ W.shift i)
    ] | (k,i) <- zip [1..9] workspaces ] ^++^
-   [ ("M--",            addName "Terminal scratchpad"         $ nsTerminal)
+   [ ("M--",            addName "Terminal scratchpad"         $ nsTerminal terminal)
    --, ("M-=",            addName "Music scratchpad"           $ nsMusic)
    ]
   ) ^++^

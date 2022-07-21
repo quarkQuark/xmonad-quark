@@ -10,6 +10,7 @@ import MyKeys
 import MyLayoutHook
 import MyManageHook
 import MyTypes
+import MyScratchpads
 
 main :: IO ()
 main = do
@@ -31,7 +32,7 @@ main = do
         , borderWidth        = myBorderWidth
         , normalBorderColor  = myNormalBorderColour
         , focusedBorderColor = myFocusedBorderColour
-        , manageHook         = myManageHook myTerminal
+        , manageHook         = myManageHook <+> manageScratchpads myTerminal
         , layoutHook         = myLayoutHook myLayoutConfig
         , logHook            = barLogHook (barConfig myBar) barProc
         , workspaces         = myWorkspaces

@@ -5,14 +5,12 @@ where
 import Data.List (isInfixOf)
 import XMonad
 import XMonad.Hooks.ManageDocks
-import XMonad.Util.NamedScratchpad
-import MyScratchpads
+
+myManageHook :: ManageHook
+myManageHook = manageSpecific <+> manageDocks
 
 titleContains :: String -> Query Bool
 titleContains string = fmap (isInfixOf string) title
-
-isZoomNotification :: Query Bool
-isZoomNotification = className =? "zoom" <&&> title =? "zoom"
 
 -- To find a window class or title, run xprop in a terminal, then click on it
 manageSpecific :: ManageHook
@@ -26,8 +24,4 @@ manageSpecific = composeAll . concat $
         myFloatClasses = ["Gimp", "conky", "plasmashell", "vlc", "Nitrogen", "Tint2conf", "dolphin-emu"]
         myFloatTitles  = ["Whisker Menu"]
         myZoomFloats   = ["Chat", "Participants", "Rooms"]
-
-myManageHook :: String -> ManageHook
-myManageHook terminal = manageSpecific
-  <+> manageDocks
-  <+> namedScratchpadManageHook (myScratchpads terminal)
+        isZoomNotification = className =? "zoom" <&&> title =? "zoom"
