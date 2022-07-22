@@ -1,6 +1,6 @@
 import XMonad                             -- standard xmonad library
 import XMonad.Config.Desktop              -- default desktopConfig
-import XMonad.Hooks.EwmhDesktops (ewmh)   -- Fixes the automatic fullscreening of applications
+import XMonad.Hooks.EwmhDesktops
 import XMonad.Util.NamedActions (addDescrKeys')
 import XMonad.Util.SpawnOnce (spawnOnce)  -- For running autostart only once (on login)
 
@@ -20,7 +20,7 @@ main = do
     -- Applies this config file over the default config for desktop use
     xmonad
         -- Increased compliance with the Extended Window Manager Hints standard
-        $ ewmh
+        $ ewmhFullscreen . ewmh
         -- Add keybindings in such a way as to allow viewing a cheatsheet with M-?
         $ addDescrKeys' (myCheatsheetKey myModMask, myCheatsheet) (myKeys myAppConfig)
         $ myConfig barProc

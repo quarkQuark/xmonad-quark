@@ -2,10 +2,10 @@ name: myXmonad
 
 dependencies:
     - base
-    - xmonad
-    - xmonad-contrib
     - split
     - fitspec
+    - xmonad
+    - xmonad-contrib
 
 library:
     source-dirs: src
