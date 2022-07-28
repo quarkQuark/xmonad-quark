@@ -1,4 +1,5 @@
 import XMonad                             -- standard xmonad library
+import XMonad.Actions.Prefix
 import XMonad.Config.Desktop              -- default desktopConfig
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Util.NamedActions (addDescrKeys')
@@ -19,6 +20,7 @@ main = do
 
     -- Applies this config file over the default config for desktop use
     xmonad
+        $ usePrefixArgument "M-u"
         -- Increased compliance with the Extended Window Manager Hints standard
         $ ewmhFullscreen . ewmh
         -- Add keybindings in such a way as to allow viewing a cheatsheet with M-?
@@ -51,8 +53,7 @@ main = do
       , browserBig     = "vivaldi"
       , buildScript    = myXMonadDir ++ "build"
       , editor         = "emacs"
-      , fileManager    = myTerminal ++ " -e ranger "
-      , fileManagerGUI = "pcmanfm"
+      , fileManager    = Left (terminalApp myTerminal "ranger", "pcmanfm")
       , menu           = "rofi -dmenu -i -p"
       , pdfReader      = "zathura"
       , printScreen    = "spectacle"
