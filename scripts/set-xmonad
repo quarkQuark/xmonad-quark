@@ -32,16 +32,31 @@ xmodmap -e "keycode any = space"
 # Tapping space works properly
 xcape -e "Super_L=space" # Space works normally when tapped
 
+# Dell XPS 9310 2-in-1
+# Laptop: eDP-1
+# Right USBc -> Dock HDMI-1: DP-1-1
+# Right USBc -> Dock HDMI-2: DP-1-2
+# Left  USBc -> Dock HDMI-1: DP-3-1
+# Left  USBc -> Dock HDMI-2: DP-3-2
+
 # Different names on different laptops
 screen0="eDP-1"
-screen1="HDMI-1"
+screen1="DP-1-1"
 ratio="1920x1200"
-ratiosmall="960x600"
+w=1920
+h=1200
+wSmall=960
+hSmall=600
+
+# If no eDP-1, assume this is my old laptop
 xrandr | grep -q "eDP-1" \
     || screen0="eDP1" \
     || screen1="HDMI1" \
-    || ratio="1920x1080" \
-    || ratiosmall="960x540"
+    || h=1080 \
+    || hSmall=540
+
+ratio="${w}x${h}"
+ratiosmall="${wSmall}x${hSmall}"
 
 [ $side = "0" ] \
     && xrandr \
@@ -53,28 +68,28 @@ xrandr | grep -q "eDP-1" \
 
 # Monitor setup
 
-offset=540
+offset=$hSmall
 pos0=""
 pos1=""
 
 case $side in
-    l)  pos0=960x0
-        pos1=0x$offset
+    l)  pos1=${w}x0
+        pos0=0x${offset}
         ;;
-    r)  pos0=1920x0
-        pos1=3840x$offset
+    r)  pos1=${w}x0
+        pos0=3840x${offset}
         ;;
-    *)  pos0=1920x0
-        pos1=3840x$offset
+    *)  pos1=${w}x0
+        pos0=3840x${offset}
         ;;
 esac
 
 # Monitor on right
 xrandr \
     --output $screen1 --primary \
-      --mode 1920x1080 --pos $pos0 \
+      --mode 1920x1080 --pos $pos1 \
     --output $screen0 \
-      --mode $ratiosmall --pos $pos1 --scale 1x1 \
+      --mode $ratio --pos $pos0 --scale 1x1 \
     && nitrogen --restore && xmonad --restart
 #xrandr \
 #    --output HDMI1 --primary \
