@@ -50,7 +50,7 @@ main = do
 
     myAppConfig = AppConfig
       { browserMinimal = "qutebrowser"
-      , browserBig     = "vivaldi"
+      , browserBig     = "vivaldi-stable"
       , buildScript    = myXMonadDir ++ "build"
       , editor         = "emacs"
       , fileManager    = Left (terminalApp myTerminal "ranger", "pcmanfm")
