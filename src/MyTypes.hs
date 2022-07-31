@@ -1,6 +1,13 @@
 module MyTypes
-( AppConfig(..), CommandWithPrefix )
+  ( AppConfig(..)
+  , CommandWithPrefix
+  , Key
+  , Keybindings
+  )
 where
+
+import XMonad
+import XMonad.Util.NamedActions
 
 type CommandWithPrefix = Either (String,String) String
 
@@ -14,3 +21,6 @@ data AppConfig = AppConfig
   , pdfReader      :: !String
   , printScreen    :: !String
   }
+
+type Key = (KeyMask, KeySym)
+type Keybindings = [(Key, NamedAction)]

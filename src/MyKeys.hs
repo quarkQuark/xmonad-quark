@@ -25,7 +25,7 @@ import Text.Printf (printf)
 
 import MyScratchpads
 import MyCheatsheet
-import MyTypes ( AppConfig(..), CommandWithPrefix )
+import MyTypes
 
 -- | Convert multiword strings to arguments (concatenate with delimiters)
 -- This makes sure my shell scripts correctly interpret their arguments
@@ -35,9 +35,6 @@ args command arguments = command ++ " " ++ unwords (map show arguments)
 -- M = M1 is Super, which I have also set to space when held down
 -- M3 is Hyper, which I have set to Caps Lock
 -- C-Esc is Super tapped on its own
-
-type Key = (KeyMask, KeySym)
-type Keybindings = [(Key, NamedAction)]
 
 -- | Keybinding to display the keybinding cheatsheet
 --myCheatsheetKey :: String -> Key
