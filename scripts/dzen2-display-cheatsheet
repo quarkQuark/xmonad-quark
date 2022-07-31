@@ -45,8 +45,8 @@ xPos=`expr \( ${screenX} - ${width} \) / 2`
 yPos=`expr \( ${screenY} - ${height} \) / 2`
 
 # Dzen behaviour
-eventActions='onstart=uncollapse'\
-';button1=exit;button3=exit;key_Escape=exit'\
+eventActions='onstart=uncollapse,grabkeys'\
+';button1=exit;button3=exit;key_Escape=exit;key_Return=exit;key_space=exit'\
 ';button4=scrollup;button5=scrolldown'
 
 # Replace placeholders
