@@ -1,9 +1,10 @@
-name: myXmonad
+name: xmonad-quark
 
 dependencies:
     - base
-    - split
     - fitspec
+    - split
+    - text
     - xmonad
     - xmonad-contrib
 
@@ -14,7 +15,7 @@ executables:
     xmonad:
         source-dirs:  app
         main:         Main.hs
-        dependencies: myXmonad
+        dependencies: xmonad-quark
         ghc-options:
             - -threaded
             - -rtsopts

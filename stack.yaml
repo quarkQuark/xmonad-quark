@@ -33,14 +33,16 @@ resolver: lts-19.17
 #  - auto-update
 #  - wai
 packages:
+  - xmonad
+  - xmonad-contrib
   - .
 
 # Dependency packages to be pulled from upstream that are not in the resolver
 # using the same syntax as the packages field.
 # (e.g., acme-missiles-0.3)
 #extra-deps:
-#  - xmonad-0.17.0
-#  - xmonad-contrib-0.17.0
+#- ./xmonad
+#- ./xmonad-contrib
 #
 # Override default flag values for local packages and extra-deps
 #flags: []

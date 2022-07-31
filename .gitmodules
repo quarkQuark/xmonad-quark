@@ -1,0 +1,7 @@
+[submodule "xmonad"]
+	path = xmonad
+	url = git@github.com:xmonad/xmonad
+[submodule "xmonad-contrib"]
+	path = xmonad-contrib
+	url = git@github.com:quarkQuark/xmonad-contrib
+	branch = namedactions-pretty

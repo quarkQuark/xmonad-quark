@@ -4,6 +4,6 @@ EXEC_PATH="$1"
 
 cd ~/Projects/xmonad-quark
 stack install
-ln -sf ~/.local/bin/xmonad $EXEC_PATH
+#ln -sf ~/.local/bin/xmonad $EXEC_PATH
 cp scripts/* ~/.scripts
 xmonad --restart
