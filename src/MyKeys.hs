@@ -86,11 +86,11 @@ myKeys AppConfig{..} conf@XConfig{..} = let
   in
 
   subKeys "Core"
-  [ ("M-S-q",           addName "Quit XMonad (logout)"        $ io exitSuccess)
-  , ("M-q",             addName "Recompile and restart"       $ withPrefixArgument myRestart)
-  , ("M-S-s",           addName "Suspend"                     $ spawn "systemctl suspend")
-  , ("C-<Escape>",      addName "Application launcher"        $ spawn "appmenu")
-  , ("M-S-c",           addName "Close window"                $ kill)
+  [ ("M-S-q",           addName "Quit XMonad"                          $ io exitSuccess)
+  , ("M-q",             addName "Restart XMonad (restart and refresh)" $ withPrefixArgument myRestart)
+  , ("M-S-s",           addName "Suspend"                              $ spawn "systemctl suspend")
+  , ("C-<Escape>",      addName "Application launcher"                 $ spawn "appmenu")
+  , ("M-S-c",           addName "Close window"                         $ kill)
   ] ^++^
 
   subKeys "Screens"
