@@ -8,21 +8,42 @@ XMonad is a library for creating a tiling window manager in Haskell, a programmi
 
 - Required :: =kitty nitrogen redshift rofi spectacle network-manager network-manager-applet pasystray udiskie xcape xorg-xmodmap xorg-xrandr aur/deadd-notification-center aur/notify-send-py aur/stack-static aur/picom-ibhagwan-git=
 - Scripts :: https://github.com/quarkQuark/scripts
-- For XMobar :: =stalonetray xfce4-power-manager=
-- For Taffybar :: =lxqt-power-management=
+- To use XMobar :: =stalonetray xfce4-power-manager=
+- To use Taffybar :: =lxqt-power-management= and run =stack install status-notifier-item=
 - Not necessary for core functionality :: =dzen2 emacs pcmanfm qutebrowser ranger tmux vivaldi zathura=
 
 *** Install XMonad
 
-#+begin_src sh
-  git clone git@github.com:quarkQuark/xmonad-quark $HOME/Projects/xmonad-quark
-  cd $HOME/Projects/xmonad-quark && stack install
-  cd $HOME/.config/taffybar && stack install
-  stack install xmobar
-  stack install status-notifier-item  # For taffybar's system tray
-#+end_src
+1. Clone this config as well as my forks of the =xmonad= and =xmonad-contrib= source code.
 
-Then create the file =/usr/share/xsessions/xmonad.desktop= with the following contents:
+   #+begin_src sh
+     git clone git@github.com:quarkQuark/xmonad-quark $HOME/Projects/xmonad-quark
+     git clone git@github.com:quarkQuark/xmonad $HOME/Projects/xmonad-quark
+     git clone git@github.com:quarkQuark/xmonad-contrib $HOME/Projects/xmonad-quark
+   #+end_src
+
+   To link my forks with the official repositories, run:
+
+   #+begin_src sh
+
+     cd $HOME/Projects/xmonad
+     git remote add upstream git@github.com:xmonad/xmonad
+
+     cd $HOME/Projects/xmonad-contrib
+     git remote add upstream git@github.com:xmonad/xmonad-contrib
+
+   #+end_src
+
+2. Build and install using stack (I install stack using ghcup).
+
+   #+begin_src sh
+
+     ./$HOME/Projects/xmonad-quark/build
+     stack install xmobar
+
+   #+end_src
+
+3. Enable access from login managers by creating the following file in =/usr/share/xsessions/xmonad.desktop=:
 
 #+begin_example conf
   [Desktop Entry]
@@ -36,25 +57,3 @@ Then create the file =/usr/share/xsessions/xmonad.desktop= with the following co
   StartupNotify=false
   Categories=Application
 #+end_example
-
-** Keybindings
-
-One of the most unique features of this config is the keybinding cheatsheet that can be brought up at any time with =Super+?=, inspired by AwesomeWM. This is achieved with [[https://www.stackage.org/haddock/lts-18.5/xmonad-contrib-0.16/XMonad-Util-NamedActions.html][XMonad.Util.NamedActions]] and displayed using =dzen2= and [[/.scripts/dzen2-display-cheatsheet][a shell script with lots of regex]].
-
-In [[./src/modifiers.sh][src/modifiers.sh]] I also bind =Caps Lock= to =Hyper= and =Space=, when held down, to an additional =Super= (Windows) key. The goal of this is to enable more ergonomic keybindings. Eventually I will include a list of keybindings in this README, but until then refer to the screenshot at the top of this page.
-
-** Panels
-
-I've configured XMonad to work with three different panels. The current panel can be easily changed by changing the =myBar= variable in [[/app/Main.hs][app/Main.hs]].
-
-- Tint2 ::
-
-  This is the most bloated and least well integrated with XMonad, but it allows me to have a vertical panel.
-
-- XMobar ::
-
-  The standard XMonad status bar. Very simple and lightweight, and extremely well integrated with XMonad itself. This is the least buggy, but also the least pretty.
-
-- Taffybar ::
-
-  Like XMobar, but with more eyecandy.
