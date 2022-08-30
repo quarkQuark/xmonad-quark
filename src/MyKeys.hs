@@ -66,18 +66,18 @@ myKeys AppConfig{..} conf@XConfig{..} = let
   myRestart _       = spawn buildScript
 
   namedWithPrefixSpawn :: String -> CommandWithPrefix -> NamedAction
-  namedWithPrefixSpawn s a = addName (s ++ (either f1 f2 a)) $ withPrefixSpawn a
+  namedWithPrefixSpawn s a = addName (s ++ either f1 f2 a) $ withPrefixSpawn a
     where
       f1 (a,b) = printf ": %s (%s)" (cmd a) (cmd b)
       f2 s     = printf ": %s" (cmd s)
       cmd s = toName s $ stripPrefix (terminalApp terminal "") s
       toName s (Just x) = x
       toName s Nothing  = s
-  
+
   withPrefixSpawn :: CommandWithPrefix -> X ()
   withPrefixSpawn = either f1 f2
     where
-      f1 (a,b) = withPrefixArgument $ \u -> spawn $ if (isPrefixRaw u) then b else a
+      f1 (a,b) = withPrefixArgument $ \u -> spawn $ if isPrefixRaw u then b else a
       f2 s = withPrefixArgument $ \u -> spawn s
 
   spawnTUI :: String -> X ()
