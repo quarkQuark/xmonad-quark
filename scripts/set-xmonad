@@ -41,7 +41,7 @@ xcape -e "Super_L=space" # Space works normally when tapped
 
 # Different names on different laptops
 screen0="eDP-1"
-screen1="DP-1-1"
+screen1="DP-3-1"
 ratio="1920x1200"
 w=1920
 h=1200

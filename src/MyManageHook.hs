@@ -21,7 +21,19 @@ manageSpecific = composeAll . concat $
     , [ isZoomNotification                        --> doFloat ]
     ]
     where
-        myFloatClasses = ["Gimp", "conky", "plasmashell", "vlc", "Nitrogen", "Tint2conf", "dolphin-emu"]
+        myFloatClasses = [ "Gimp"
+                         , "conky"
+                         , "plasmashell"
+                         , "vlc"
+                         , "Nitrogen"
+                         , "Tint2conf"
+                         , "dolphin-emu"
+                         , "zulip"
+                         , "discord"
+                         , "element"
+                         , "Steam"
+                         , "heroic"
+                         ]
         myFloatTitles  = ["Whisker Menu"]
         myZoomFloats   = ["Chat", "Participants", "Rooms"]
         isZoomNotification = className =? "zoom" <&&> title =? "zoom"

@@ -4,7 +4,7 @@ picom &
 redshift-gtk &
 
 # Daemons
-#emacs --daemon &
+#emacs --daemon # &
 
 # Tray Icons
 status-notifier-watcher # Tracks tray applets for Taffybar

@@ -17,11 +17,7 @@ import XMonad.Layout.NoBorders             ( smartBorders )
 import XMonad.Layout.Renamed               ( Rename(Replace), renamed )
 import XMonad.Layout.ResizableTile         ( ResizableTall(ResizableTall) )
 import XMonad.Layout.Spacing               ( spacingRaw, Border(Border) )
-import XMonad.Layout.Tabbed
-    ( def,
-      shrinkText,
-      tabbed,
-      Theme(..) )
+import XMonad.Layout.Tabbed                ( def, shrinkText, tabbed, Theme(..) )
 import XMonad.Layout.ThreeColumns          ( ThreeCol(ThreeColMid) )
 
 data LayoutConfig = LayoutConfig
