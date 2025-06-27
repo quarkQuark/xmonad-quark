@@ -1,0 +1,4 @@
+.github
+.stack-work
+stack.yaml.lock
+xmonad-quark.cabal
