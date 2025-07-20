@@ -1,3 +1,7 @@
+I have switched to Wayland and no longer regularly use XMonad. Therefore this configuration may consider bugs I have not fixed, or patterns that are outdated. I hope one day I can again configure my desktop in Haskell!
+
+-----
+
 * My XMonad Configuration
 
 XMonad is a library for creating a tiling window manager in Haskell, a programming language with particular appeal to me as a mathematician. Proponents of tiling window managers often praise their minimalism. While appreciating how fast they run, I have also put effort into keeping around some eyecandy!
